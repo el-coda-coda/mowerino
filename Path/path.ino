@@ -1,34 +1,39 @@
-#include "rettangolo.h"
+#include "rettangolo_1.h"
 
-
-void setup() 
+void setup ()
 {
 
-  lcd.begin(16,4); 
-  lcd.backlight();
-  setup_motori(pin_1, pin_apwm, pin_2, pin_3, pin_bpwm, pin_4);
-  pinMode(echo1, INPUT);
-  pinMode(trig1, OUTPUT);
-  pinMode(echo2, INPUT);
-  pinMode(trig2, OUTPUT);
+   delay(1000);
+   motori(0,0);
+   Serial.begin(9600);
+   Serial.println(distanza(trig1, echo1));
+   pinMode(trig1, OUTPUT);
+   pinMode(echo1, INPUT);
+   pinMode(pwm_A, OUTPUT);
+   pinMode(dir_A, OUTPUT);
+   pinMode(pwm_B, OUTPUT);
+   pinMode(dir_B, OUTPUT);
+   pinMode(bottone, INPUT);
+   pinMode(13, OUTPUT);
 
 }
 
-void loop() 
+
+void loop ()
 {
+   Serial.println(distanza(trig1, echo1));
+   if(distanza(trig1, echo1)<= 20)
+   {
 
-  rettangolo(latoA, latoB);
+      digitalWrite(13, HIGH);
+    
+   }
+   else
+   {
 
-}
-
-void setup_motori (int pin1, int pinapwm, int pin2, int pin3, int pinbpwm, int pin4)
-{
-  
-  pinMode(pin1, OUTPUT);
-  pinMode(pin2, OUTPUT);
-  pinMode(pinapwm, OUTPUT);
-  pinMode(pin3, OUTPUT);
-  pinMode(pin4, OUTPUT);
-  pinMode(pinbpwm, OUTPUT);
+      digitalWrite(13, LOW);
+    
+   }
+   rettangolo(latoA, latoB);
 
 }
