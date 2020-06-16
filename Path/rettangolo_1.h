@@ -15,9 +15,6 @@ void sinistra90() {
 }
 
 
-
-
-
 void rettangolo (int base, int altezza)
 {
     

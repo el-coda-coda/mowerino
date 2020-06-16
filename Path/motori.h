@@ -1,41 +1,34 @@
-#include "configurazione.h"
-
 void motori(int destro, int sinistro)
 {
 
   if(destro >= 0)
   {
 
-    analogWrite(pin_apwm, destro);
-    digitalWrite(pin_1, HIGH);
-    digitalWrite(pin_2, LOW);
+    analogWrite(pwm_A, destro);
+    digitalWrite(dir_A, HIGH);
 
   }
   if(destro < 0)
   {
 
-    analogWrite(pin_apwm, (destro*-1));
-    digitalWrite(pin_1, LOW);
-    digitalWrite(pin_2, HIGH);
+    analogWrite(pwm_A, (destro*-1));
+    digitalWrite(dir_A, LOW);
 
   }
   if(sinistro >= 0)
   {
 
-    analogWrite(pin_bpwm, sinistro);
-    digitalWrite(pin_3, HIGH);
-    digitalWrite(pin_4, LOW);
+    analogWrite(pwm_B, sinistro);
+    digitalWrite(dir_B, HIGH);
 
   }
   if(sinistro < 0)
   {
 
-    analogWrite(pin_bpwm, (sinistro*-1));
-    digitalWrite(pin_3, LOW);
-    digitalWrite(pin_4, HIGH);
+    analogWrite(pwm_B, (sinistro*-1));
+    digitalWrite(dir_B, LOW);
 
 
   }
   
-
 }
