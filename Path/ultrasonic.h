@@ -9,6 +9,10 @@
 #define ULTRASONIC1_ECHO_PIN  3
 #define ULTRASONIC1_TRIGGER_PIN  4
 
+#define ULTRASONIC_ENABLED false
+#define VERY_LONG_DINSTANCE 1000
+
+
 //Computes distance from obstacle in centimeters
 //Argumnents trigger_pin and echo_pin on arduino for ultrasonic sensor
 long get_obstacle_distance(int trigger_pin, int echo_pin)
@@ -23,10 +27,10 @@ long get_obstacle_distance(int trigger_pin, int echo_pin)
     long rotation = pulseIn(echo_pin, HIGH);
     long distance = ULTRASONIC_PARAMETER * rotation / 2;
 
-    if (rotation > ULTRASONIC_OUTOFRANGE)
+    if ((rotation > ULTRASONIC_OUTOFRANGE) || !ULTRASONIC_ENABLED)
     {
-        return 100;
-        distance = -1;
+        //gli ultrasuoni non vedono nulla  o sono disabilitati
+        return VERY_LONG_DINSTANCE;
     }
     else
     {
