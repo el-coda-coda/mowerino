@@ -22,6 +22,7 @@ void setup ()
 
    /*Testing percorsi semplici*/
    Serial.println("go forward 200");
+   
    go_forward(200); 
 
 

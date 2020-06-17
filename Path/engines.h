@@ -21,6 +21,9 @@
 #define PWM_PIN_ENGINE_B  10
 
 
+
+
+
 //Delay on engine movement
 void engines_delay() {
   delay(ENGINE_DELAY);
@@ -49,18 +52,24 @@ void engines(int right_power, int left_power)
   {
 
     analogWrite(PWM_PIN_ENGINE_B, left_power);
-    digitalWrite(PWM_PIN_ENGINE_B, LOW);
+    digitalWrite(DIRECTION_PIN_ENGINE_B, LOW);
 
   }
   if(left_power < 0)
   {
 
     analogWrite(PWM_PIN_ENGINE_B, (left_power*-1));
-    digitalWrite(PWM_PIN_ENGINE_B, HIGH);
+    digitalWrite(DIRECTION_PIN_ENGINE_B, HIGH);
 
 
   }
   
+}
+
+//Stop each engine
+int engines_stop() {
+  engines(0,0);
+  return 0;
 }
 
 
@@ -83,6 +92,8 @@ int engines_movement(float duration, int power_right, int power_left) {
         obstacle_found = (obstacle_distance < MOVEMENT_OBSTACLE_DISTANCE);
       }
    }
+   engines_stop();
+
    if (obstacle_found) {
      return MOVEMENT_OBSTACLE_FOUND;
    }
@@ -113,9 +124,3 @@ int engines_forward(float duration) {
   return engines_movement(duration,ENGINE_MAX, ENGINE_MAX);
 }
 
-
-//Stop each engine
-int engines_stop() {
-  engines(0,0);
-  return 0;
-}
