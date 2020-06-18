@@ -1,10 +1,10 @@
 #include <Servo.h>
 
 #define ESC_ATTACH  11
-#define ON_OFF_ESC_PIN 8
 #define ESC_OFF 1000
 #define ESC_ON 1300 //ESC ON PUO' ANDARE DA 1000 A 2000
 int ON_OFF = 1;
+int  ON_OFF_ESC_PIN = BUTTON_PIN;
 
 Servo esc;
 
