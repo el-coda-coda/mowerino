@@ -12,7 +12,7 @@ void setup ()
    // lcd.init();
    // lcd.backlight();
 
-   delay(5000);
+   delay(3000);
    engines_stop();
    Serial.begin(9600);
    /*Serial.println(distance(trig1, echo1));*/
@@ -37,5 +37,5 @@ void setup ()
 void loop ()
 {
    
-go_forward(200); 
+
 }

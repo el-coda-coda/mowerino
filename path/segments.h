@@ -1,6 +1,6 @@
 //wheel diameter in centimeters
 #define WHEEL_DIAMETER 12
-#define RPM 30
+#define RPM 33
 
 #define distanza_curva  20
 
@@ -18,6 +18,7 @@ float segment_time(int wheel_diamater,float segment_length)
 
   float rotation_number = segment_length / circumference;
   logDebug("rotation_number: ",rotation_number);
+  
   float segment_time_result = rotation_number / rps;
   logDebug("segment_time_result: ",segment_time_result);
   return segment_time_result;

@@ -5,7 +5,7 @@
 
 #define LOG_LEVEL 5 //1 INFO, 5 DEBUG
 #define LOG_TO_SERIAL true
-#define LOG_TO_LCD true
+#define LOG_TO_LCD false
 
 
 
@@ -58,4 +58,3 @@ void logInfo(String message, float value){
         }
     }
 }
-

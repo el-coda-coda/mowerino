@@ -1,6 +1,6 @@
 #include "ultrasonic.h"
 
-#define ENGINE_MAX 255 //30 rpm a vuoto
+#define ENGINE_MAX 255 //33 rpm a vuoto
 
 #define ENGINE_DELAY 1000
 #define ULTRASONIC_QUERY_TIME 1000 //everysecond
@@ -86,23 +86,27 @@ int engines_movement(float duration, int power_right, int power_left) {
    Serial.println(duration_millseconds);
    while ((curr_time < duration_millseconds) && !obstacle_found)
    {
+      Serial.println(curr_time);
       engines(power_right, power_left);
       delay(ENGINE_STEP_DELAY);
       curr_time = curr_time + ENGINE_STEP_DELAY;
       
       //Check ultrasensor every ULTRASONIC_QUERY_TIME millisecs doing division module
+      
       int division_mod = curr_time % ULTRASONIC_QUERY_TIME;
       
-      if (division_mod == 0) {
+      //if (division_mod == 0) {
         int obstacle_distance = get_obstacle_distance(ULTRASONIC1_TRIGGER_PIN,ULTRASONIC1_ECHO_PIN);
-        Serial.println("obstacle message at");
-        Serial.println(obstacle_distance);
+
+        //Serial.println("obstacle message at");
+        //Serial.println(obstacle_distance);
         obstacle_found = (obstacle_distance < MOVEMENT_OBSTACLE_DISTANCE);
-      }
+      //}
+      
       
    }
    
-   //engines_stop();
+   engines_stop();
 
    if (obstacle_found) {
      return MOVEMENT_OBSTACLE_FOUND;

@@ -18,19 +18,30 @@
 long get_obstacle_distance(int trigger_pin, int echo_pin)
 {
 
+    Serial.println("START US");
     digitalWrite(trigger_pin, LOW);
-
+    Serial.println("step1 US");
     digitalWrite(trigger_pin, HIGH);
+    Serial.println("step2 US");
+    
     delayMicroseconds(10);
+    Serial.println("step3 US");
+    
     digitalWrite(trigger_pin, LOW);
+    Serial.println("step4 US");
 
-    long rotation = pulseIn(echo_pin, HIGH);
+    long rotation = pulseIn(echo_pin, HIGH);  
+    Serial.println("step5 US");
+    
     long distance = ULTRASONIC_PARAMETER * rotation / 2;
+    Serial.println("step6 US");
+    
 
+    Serial.println("STOP US");
     if ((rotation > ULTRASONIC_OUTOFRANGE) || !ULTRASONIC_ENABLED)
     {
         //gli ultrasuoni non vedono nulla  o sono disabilitati
-        Serial.println("No obstacles in front of me");
+        //Serial.println("No obstacles in front of me");
         return VERY_LONG_DINSTANCE;
     }
     else
