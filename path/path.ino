@@ -1,5 +1,9 @@
 
+#include "logging.h"
 
+#include "constants.h"
+#include "engines.h"
+#include "segments.h"
 
 void setup ()
 {
