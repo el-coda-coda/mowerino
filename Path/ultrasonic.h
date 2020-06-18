@@ -30,6 +30,7 @@ long get_obstacle_distance(int trigger_pin, int echo_pin)
     if ((rotation > ULTRASONIC_OUTOFRANGE) || !ULTRASONIC_ENABLED)
     {
         //gli ultrasuoni non vedono nulla  o sono disabilitati
+        Serial.println("No obstacles in front of me");
         return VERY_LONG_DINSTANCE;
     }
     else

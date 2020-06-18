@@ -1,7 +1,7 @@
 //wheel diameter in centimeters
 #define WHEEL_DIAMETER 12
-#define RPM 23
-#define RPS 23/60;
+#define RPM 30
+
 #define distanza_curva  20
 
 
@@ -9,9 +9,18 @@
 //Solo questa classe lo può utilizzare
 float segment_time(int wheel_diamater,float segment_length)
 {
+  float rps = ((float) RPM) / 60;
   float circumference = wheel_diamater * 3.14;
-  float rotation_nbumber = segment_length / circumference;
-  float segment_time_result = rotation_nbumber / RPS;
+  Serial.println("circumference");
+  Serial.println(circumference);
+  float rotation_number = segment_length / circumference;
+  Serial.println("rotation_number");
+  Serial.println(rotation_number);
+  float segment_time_result = rotation_number / rps;
+  Serial.println("segment_time_result");
+  Serial.println(segment_time_result);
+  Serial.println("rps");
+  Serial.println(rps);
   return segment_time_result;
 
 }
@@ -20,6 +29,10 @@ float segment_time(int wheel_diamater,float segment_length)
 int go_forward(float segment_length) {
   int movement_result=0;
   float seg_time = segment_time(WHEEL_DIAMETER, segment_length);
+  Serial.println("Go forwardo for time (sec)");
+  Serial.println(seg_time);
+  Serial.println("Segment length cm");
+  Serial.println(segment_length);
   movement_result = engines_forward(seg_time);
   if (movement_result<0) engines_stop(); //per ora spengo
   return movement_result;

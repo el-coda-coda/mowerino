@@ -8,16 +8,6 @@ int  ON_OFF_ESC_PIN = BUTTON_PIN;
 
 Servo esc;
 
-void setup_esc ()
-{
-    delay(1000);
-    esc.writeMicroseconds(1000);
-    delay(5000);
-    esc.writeMicroseconds(1300);
-    delay(3000);
-    esc.writeMicroseconds(1000);
-}
-
 void esc_on()
 {
     esc.writeMicroseconds(ESC_ON);
@@ -28,9 +18,9 @@ void esc_off()
     esc.writeMicroseconds(ESC_OFF);
 }
 
-void esc_botton_control()
+void esc_botton_toggle()
 {
-    if(digitalRead(ON_OFF_ESC_PIN) ==HIGH)
+    if(digitalRead(ON_OFF_ESC_PIN) == HIGH)
     {
         ON_OFF = ON_OFF * -1;
     }
@@ -43,4 +33,16 @@ void esc_botton_control()
         esc_off();
     }
     
+}
+
+
+void esc_setup ()
+{
+    //ESC setup for starting up.
+    delay(1000);
+    esc_off();
+    delay(5000);
+    esc_on();
+    delay(3000);
+    esc_off();
 }

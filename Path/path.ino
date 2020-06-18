@@ -7,7 +7,7 @@
 void setup ()
 {
 
-   delay(1000);
+   delay(5000);
    engines_stop();
    Serial.begin(9600);
    /*Serial.println(distance(trig1, echo1));*/
