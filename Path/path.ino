@@ -1,3 +1,5 @@
+#include "logging.h"
+
 #include "constants.h"
 #include "engines.h"
 #include "segments.h"
@@ -6,6 +8,10 @@
 
 void setup ()
 {
+
+   // LiquidCrystal_I2C lcd(0x27,20,4);
+   // lcd.init();
+   // lcd.backlight();
 
    delay(5000);
    engines_stop();

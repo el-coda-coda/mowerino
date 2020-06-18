@@ -10,17 +10,16 @@
 float segment_time(int wheel_diamater,float segment_length)
 {
   float rps = ((float) RPM) / 60;
+  
+
+
   float circumference = wheel_diamater * 3.14;
-  Serial.println("circumference");
-  Serial.println(circumference);
+  logDebug("Circumference: ",circumference);
+
   float rotation_number = segment_length / circumference;
-  Serial.println("rotation_number");
-  Serial.println(rotation_number);
+  logDebug("rotation_number: ",rotation_number);
   float segment_time_result = rotation_number / rps;
-  Serial.println("segment_time_result");
-  Serial.println(segment_time_result);
-  Serial.println("rps");
-  Serial.println(rps);
+  logDebug("segment_time_result: ",segment_time_result);
   return segment_time_result;
 
 }
