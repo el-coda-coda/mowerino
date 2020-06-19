@@ -9,7 +9,7 @@
 #define ULTRASONIC1_ECHO_PIN  3
 #define ULTRASONIC1_TRIGGER_PIN  4
 
-#define ULTRASONIC_ENABLED false
+#define ULTRASONIC_ENABLED true
 #define VERY_LONG_DINSTANCE 1000
 
 
@@ -17,36 +17,23 @@
 //Argumnents trigger_pin and echo_pin on arduino for ultrasonic sensor
 long get_obstacle_distance(int trigger_pin, int echo_pin)
 {
-
-    Serial.println("START US");
-    digitalWrite(trigger_pin, LOW);
-    Serial.println("step1 US");
-    digitalWrite(trigger_pin, HIGH);
-    Serial.println("step2 US");
+    logDebug(String("Start US"));
     
+    digitalWrite(trigger_pin, LOW);
+    digitalWrite(trigger_pin, HIGH); 
     delayMicroseconds(10);
-    Serial.println("step3 US");
-    
     digitalWrite(trigger_pin, LOW);
-    Serial.println("step4 US");
-
+    logDebug(String("50 ms delay"));
     long rotation = pulseIn(echo_pin, HIGH);  
-    Serial.println("step5 US");
-    
-    long distance = ULTRASONIC_PARAMETER * rotation / 2;
-    Serial.println("step6 US");
-    
-
-    Serial.println("STOP US");
+    long distance = ULTRASONIC_PARAMETER * rotation / 2;    
     if ((rotation > ULTRASONIC_OUTOFRANGE) || !ULTRASONIC_ENABLED)
     {
-        //gli ultrasuoni non vedono nulla  o sono disabilitati
-        //Serial.println("No obstacles in front of me");
+        logDebug(String("End US, distance (cm): out of range"));
         return VERY_LONG_DINSTANCE;
     }
     else
     {
-        return distance;
+        
+        return distance; 
     }
-
 }

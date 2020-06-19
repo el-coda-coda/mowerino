@@ -1,6 +1,6 @@
 //wheel diameter in centimeters
 #define WHEEL_DIAMETER 12
-#define RPM 33
+#define RPM 30
 
 #define distanza_curva  20
 
@@ -26,15 +26,27 @@ float segment_time(int wheel_diamater,float segment_length)
 }
 
 
-int go_forward(float segment_length) {
+int go_forward(float segment_length) 
+{
   int movement_result=0;
   float seg_time = segment_time(WHEEL_DIAMETER, segment_length);
-  Serial.println("Go forwardo for time (sec)");
-  Serial.println(seg_time);
-  Serial.println("Segment length cm");
-  Serial.println(segment_length);
+  
+  logDebug(String("Go forwardo for time (sec) ") + String(seg_time));
+  logDebug(String("Segment length (cm): ") + String(segment_length));
+
   movement_result = engines_forward(seg_time);
-  if (movement_result<0) engines_stop(); //per ora spengo
+  if (movement_result == MOVEMENT_OBSTACLE_FOUND || movement_result == MOVEMENT_GENERIC_ERROR) 
+  {
+    engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_OBSTACLE_FOUND) 
+    {
+      logDebug(String("obstacle found"));
+    }
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    {
+      logDebug(String("generic movement error"));
+    }
+  }
   return movement_result;
 }
 

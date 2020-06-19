@@ -38,6 +38,7 @@ void esc_botton_toggle()
 
 void esc_setup ()
 {
+    esc.attach(ESC_ATTACH);
     //ESC setup for starting up.
     delay(1000);
     esc_off();

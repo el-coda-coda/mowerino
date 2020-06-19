@@ -1,9 +1,9 @@
 
 #include "logging.h"
-
 #include "constants.h"
 #include "engines.h"
 #include "segments.h"
+#include "esc_control.h"
 
 void setup ()
 {
@@ -11,7 +11,8 @@ void setup ()
    // LiquidCrystal_I2C lcd(0x27,20,4);
    // lcd.init();
    // lcd.backlight();
-
+   
+   esc_setup();
    delay(3000);
    engines_stop();
    Serial.begin(9600);
