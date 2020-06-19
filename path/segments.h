@@ -1,6 +1,7 @@
 //wheel diameter in centimeters
 #define WHEEL_DIAMETER 12
 #define RPM 30
+#define CURVE_LENGHT 65.94
 
 #define distanza_curva  20
 
@@ -35,18 +36,18 @@ int go_forward(float segment_length)
   logDebug(String("Segment length (cm): ") + String(segment_length));
 
   movement_result = engines_forward(seg_time);
-  if (movement_result == MOVEMENT_OBSTACLE_FOUND || movement_result == MOVEMENT_GENERIC_ERROR) 
+  if (!movement_result == MOVEMENT_OK) 
   {
-    movement_result = engines_stop(); //per ora spengo
-    if (movement_result == MOVEMENT_OBSTACLE_FOUND) 
-    {
-      logDebug(String("obstacle found"));
-      movement_result = curve_RL();
-    }
-    else
+    //movement_result = engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
     {
       logDebug(String("generic movement error"));
       movement_result = MOVEMENT_GENERIC_ERROR;
+      engines_stop();        
+    }
+    else
+    {
+      logDebug(String("obstacle found"));
     }
   }
   else
@@ -58,59 +59,115 @@ int go_forward(float segment_length)
 }
 
 
-int turn_right90(float segment_length) {
+int turn_right90() {
   int movement_result=0;
   
-  float seg_time = segment_time((int)WHEEL_DIAMETER, (float)segment_length);
+  float seg_time = segment_time((int)WHEEL_DIAMETER, CURVE_LENGHT);
   movement_result=engines_right(seg_time);
   
-  if (movement_result<0) engines_stop(); //per ora spengo
+  if (!movement_result == MOVEMENT_OK) 
+  {
+    //movement_result = engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    {
+      logDebug(String("generic movement error"));
+      movement_result = MOVEMENT_GENERIC_ERROR;
+      engines_stop();    
+    }
+    else
+    {
+      logDebug(String("obstacle found"));
+    }
+  }
+  else
+  {
+    movement_result = MOVEMENT_OK;
+  }
+  
   return movement_result;
   
 }
 
-int turn_left90(float segment_length) {
+int turn_left90() {
   int movement_result=0;
   
-  float seg_time = segment_time((int)WHEEL_DIAMETER, (float)segment_length);
+  float seg_time = segment_time((int)WHEEL_DIAMETER, CURVE_LENGHT);
   movement_result = engines_left(seg_time);
   
-  if (movement_result<0) engines_stop(); //per ora spengo
+  if (!movement_result == MOVEMENT_OK) 
+  {
+    //movement_result = engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    {
+      logDebug(String("generic movement error"));
+      movement_result = MOVEMENT_GENERIC_ERROR;
+      engines_stop();  
+    }
+    else
+    {
+      logDebug(String("obstacle found"));
+    }
+  }
+  else
+  {
+    movement_result = MOVEMENT_OK;
+  }
+  
   return movement_result;
 }
 
-int turn_right180(float segment_length) {
+int turn_right180() {
   int movement_result=0;
 
-  movement_result=turn_right90(segment_length);
-  if (movement_result<0) { 
-    engines_stop(); //per ora spengo
-    return movement_result;
+  movement_result=turn_right90(CURVE_LENGHT*2);
+
+  if (!movement_result == MOVEMENT_OK) 
+  {
+    //movement_result = engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    {
+      logDebug(String("generic movement error"));
+      movement_result = MOVEMENT_GENERIC_ERROR;
+      engines_stop();  
+    }
+    else
+    {
+      logDebug(String("obstacle found"));
+    }
+  }
+  else
+  {
+    movement_result = MOVEMENT_OK;
   }
   
-  movement_result=turn_right90(segment_length);
-  if (movement_result<0) { 
-    engines_stop(); //per ora spengo
-    return movement_result;
-  }
   return movement_result;
 }
 
 
-int turn_left180(float segment_length) {
+int turn_left180() {
   int movement_result=0;
   
-  movement_result=turn_left90(segment_length);
-  if (movement_result<0) { 
-    engines_stop(); //per ora spengo
-    return movement_result;
+  movement_result=turn_left90CURVE_LENGHT*2);
+
+  if (!movement_result == MOVEMENT_OK) 
+  {
+    //movement_result = engines_stop(); //per ora spengo
+    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    {
+      logDebug(String("generic movement error"));
+      movement_result = MOVEMENT_GENERIC_ERROR;
+      engines_stop();  
+    }
+    else
+    {
+      logDebug(String("obstacle found"));
+    }
+  }
+  else
+  {
+    movement_result = MOVEMENT_OK;
   }
   
-  movement_result = turn_left90(segment_length);
-  if (movement_result<0) { 
-    engines_stop(); //per ora spengo
-    return movement_result;
-  }
   return movement_result;
 }
 

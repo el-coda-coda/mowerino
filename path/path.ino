@@ -15,7 +15,7 @@ void setup ()
    // lcd.init();
    // lcd.backlight();
    
-   esc_setup();
+  // esc_setup();
    delay(3000);
    engines_stop();
    Serial.begin(9600);
@@ -33,6 +33,7 @@ void setup ()
    Serial.println("go forward 200");
    
    curving = go_forward(200); 
+   logDebug(String("The curve type is: ") + String(curving));
    if (curving == CURVE_RIGHT) 
    {
       turn_right90;

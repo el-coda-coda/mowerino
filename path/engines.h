@@ -4,12 +4,8 @@
 //#define ULTRASONIC_QUERY_TIME 400 everysecond
 #define ENGINE_STEP_DELAY 200 //Delay per ogni step di motore
 
-#define MOVEMENT_OK 0
 #define MOVEMENT_OBSTACLE_FOUND -10
 #define MOVEMENT_GENERIC_ERROR -1
-
-#define MOVEMENT_OBSTACLE_DISTANCE 40 //distance treshold (cm) to block current movement
-
 
 //motor A
 #define DIRECTION_PIN_ENGINE_A  2
@@ -19,8 +15,6 @@
 #define DIRECTION_PIN_ENGINE_B  12
 #define PWM_PIN_ENGINE_B  10
 
-int obstacle_distance_right;
-int obstacle_distance_left;
 int us_query = 0;
 
 
@@ -84,13 +78,12 @@ int engines_movement(float duration, int power_left, int power_right) {
    
    int duration_millseconds = (int)(duration * 1000);
    int curr_time =0;
-   bool obstacle_found_right = false;
-   bool obstacle_found_left = false;
+   int movement_result = 0;
    
    logDebug(String("duration (sec): ") + String(duration));
    logDebug(String("duration (ms): ") + String(duration_millseconds));
 
-   while ((curr_time < duration_millseconds) && !obstacle_found_right && !obstacle_distance_left)
+   while ((curr_time < duration_millseconds) && movement_result == 0)
    {
       logDebug(String(curr_time));
       delay(ENGINE_STEP_DELAY);
@@ -98,12 +91,7 @@ int engines_movement(float duration, int power_left, int power_right) {
       
       if (us_query == 2) 
       {
-        obstacle_distance_right = get_obstacle_distance(ULTRASONIC1_TRIGGER_PIN, ULTRASONIC1_ECHO_PIN);
-        obstacle_distance_left = get_obstacle_distance(ULTRASONIC2_TRIGGER_PIN, ULTRASONIC2_TRIGGER_PIN);
-        logDebug(String("right US (cm): ") + String(obstacle_distance_right));
-        logDebug(String("left US (cm): ") + String(obstacle_distance_left));
-        obstacle_found_right = (obstacle_distance_right < MOVEMENT_OBSTACLE_DISTANCE);
-        obstacle_distance_left = (obstacle_distance_left < MOVEMENT_OBSTACLE_DISTANCE);
+        movement_result = curve_RL();
         us_query = 0;     
       }
       
@@ -120,23 +108,18 @@ int engines_movement(float duration, int power_left, int power_right) {
       //   Serial.println(obstacle_found);
       // }
       //tempo medio impiegato dal check ultrasuoni
-      curr_time = curr_time + 50;
+      curr_time = curr_time + 100;
       us_query ++;
       
       //idea per controllare la posizione in futuro
       //float lenght_percurred = map(curr_time, 0, duration_millseconds, 0, lenght); questo sarebe interessante per determinare la posizione del robot, bisognerebbe trovare il modo di dargli la lunghezza che deve percorrere
    }
     engines(0,0);
-  if (obstacle_found == true) 
+  if (!movement_result == 0 ) 
   {
     logDebug(String("engines stop"));
-    logDebug(String("Obstacle at distance (cm): ") + String(obstacle_distance));
-    return MOVEMENT_OBSTACLE_FOUND;
   }
-  else
-  {
-    return MOVEMENT_OK;
-  }
+return movement_result;
 }
 
 
