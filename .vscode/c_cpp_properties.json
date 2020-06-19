@@ -16,7 +16,7 @@
             "intelliSenseMode": "clang-x64",
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
-            "cppStandard": "gnu++14"
+            "cppStandard": "c++17"
         }
     ],
     "version": 4

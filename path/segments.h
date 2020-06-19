@@ -37,16 +37,23 @@ int go_forward(float segment_length)
   movement_result = engines_forward(seg_time);
   if (movement_result == MOVEMENT_OBSTACLE_FOUND || movement_result == MOVEMENT_GENERIC_ERROR) 
   {
-    engines_stop(); //per ora spengo
+    movement_result = engines_stop(); //per ora spengo
     if (movement_result == MOVEMENT_OBSTACLE_FOUND) 
     {
       logDebug(String("obstacle found"));
+      movement_result = curve_RL();
     }
-    if (movement_result == MOVEMENT_GENERIC_ERROR) 
+    else
     {
       logDebug(String("generic movement error"));
+      movement_result = MOVEMENT_GENERIC_ERROR;
     }
   }
+  else
+  {
+    movement_result = TURN_180;
+  }
+  
   return movement_result;
 }
 

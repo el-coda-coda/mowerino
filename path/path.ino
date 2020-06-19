@@ -1,9 +1,12 @@
+#include "ultrasonic.h"
+#include "curves_control.h"
 
-#include "logging.h"
 #include "constants.h"
 #include "engines.h"
 #include "segments.h"
 #include "esc_control.h"
+
+int curving = 0;
 
 void setup ()
 {
@@ -29,8 +32,19 @@ void setup ()
    /*Testing percorsi semplici*/
    Serial.println("go forward 200");
    
-   go_forward(200); 
-
+   curving = go_forward(200); 
+   if (curving == CURVE_RIGHT) 
+   {
+      turn_right90;
+   }
+   if (curving == CURVE_LEFT)
+   {
+      turn_left90;
+   }
+   if (curving == TURN_180) 
+   {
+      turn_right180;
+   }
 
 }
 

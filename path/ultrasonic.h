@@ -1,4 +1,4 @@
-
+#include "logging.h"
 //Ultrasonic constant to compute obstacle distance
 #define ULTRASONIC_PARAMETER 0.034
 
@@ -8,6 +8,10 @@
 //First ultrasonic sensor PINS
 #define ULTRASONIC1_ECHO_PIN  3
 #define ULTRASONIC1_TRIGGER_PIN  4
+
+//Second ultrasonic sensor PINS
+#define ULTRASONIC2_ECHO_PIN  5
+#define ULTRASONIC2_TRIGGER_PIN  7
 
 #define ULTRASONIC_ENABLED true
 #define VERY_LONG_DINSTANCE 1000
