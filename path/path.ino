@@ -7,6 +7,7 @@
 #include "esc_control.h"
 
 int curving = 0;
+int movement_return;
 
 void setup ()
 {
@@ -15,7 +16,7 @@ void setup ()
    // lcd.init();
    // lcd.backlight();
    
-  // esc_setup();
+   esc_setup();
    delay(3000);
    engines_stop();
    Serial.begin(9600);
@@ -28,30 +29,36 @@ void setup ()
    pinMode(dir_B, OUTPUT);
    pinMode(BUTTON_PIN, INPUT);
    pinMode(13, OUTPUT);
-
-   /*Testing percorsi semplici*/
-   Serial.println("go forward 200");
-   
-   curving = go_forward(200); 
-   logDebug(String("The curve type is: ") + String(curving));
-   if (curving == CURVE_RIGHT) 
-   {
-      turn_right90;
-   }
-   if (curving == CURVE_LEFT)
-   {
-      turn_left90;
-   }
-   if (curving == TURN_180) 
-   {
-      turn_right180;
-   }
-
 }
 
 
 void loop ()
 {
+   esc_on();
+   delay(1000);
+   logDebug(String("Engines go forward"));
    
-
+   curving = go_forward(200); 
+   logDebug(String("The curve type is: ") + String(curving));
+   // if ()
+   // {
+   //     movement_return = go_back(curving);
+   // }
+   if (curving == CURVE_RIGHT) 
+   {
+      movement_return = turn_right90();
+   }
+   if (curving == CURVE_LEFT)
+   {
+      movement_return = turn_left90();
+   }
+   if (curving == TURN_180) 
+   {
+      movement_return = turn_right180();
+   }
+   if(movement_return == MOVEMENT_OK)  
+   {
+      logDebug(String("Movement return: MOVEMENT OK"));
+   }
+   
 }

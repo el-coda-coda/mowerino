@@ -11,7 +11,7 @@
 
 //Second ultrasonic sensor PINS
 #define ULTRASONIC2_ECHO_PIN  7
-#define ULTRASONIC2_TRIGGER_PIN  5
+#define ULTRASONIC2_TRIGGER_PIN  6
 
 #define ULTRASONIC_ENABLED true
 #define VERY_LONG_DINSTANCE 1000
@@ -37,7 +37,7 @@ long get_obstacle_distance(int trigger_pin, int echo_pin)
     }
     else
     {
-        
+        logDebug(String("End US"));
         return distance; 
     }
 }
