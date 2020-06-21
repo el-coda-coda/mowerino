@@ -1,6 +1,6 @@
 
 #define BLADE_WIDTH  23
-#define BUTTON_PIN 8
+#define BUTTON_PIN 4
 #define ROBOT_WIDTH 42
 
 

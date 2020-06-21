@@ -1,20 +1,20 @@
-#define ENGINE_MAX 255 //33 rpm a vuoto
+#define ENGINE_MAX 230 //33 rpm a vuoto
 
 #define ENGINE_DELAY 1000
 //#define ULTRASONIC_QUERY_TIME 400 everysecond
-#define ENGINE_STEP_DELAY 50 //Delay per ogni step di motore
+#define ENGINE_STEP_DELAY 200 //Delay per ogni step di motore
 
 #define MOVEMENT_OBSTACLE_FOUND -10
 #define MOVEMENT_GENERIC_ERROR -1
-#define US_DELAY 100
+#define US_DELAY 200
 
 //motor A
-#define DIRECTION_PIN_ENGINE_A  2
-#define PWM_PIN_ENGINE_A  5
+#define DIRECTION_PIN_ENGINE_A  7
+#define PWM_PIN_ENGINE_A  6
 
 //motor B
-#define DIRECTION_PIN_ENGINE_B  12
-#define PWM_PIN_ENGINE_B  10
+#define DIRECTION_PIN_ENGINE_B  8
+#define PWM_PIN_ENGINE_B  9
 
 int us_query = 0;
 
@@ -99,16 +99,14 @@ int engines_movement_controlled(float duration, int power_left, int power_right)
       //float lenght_percurred = map(curr_time, 0, duration_millseconds, 0, lenght); questo sarebe interessante per determinare la posizione del robot, bisognerebbe trovare il modo di dargli la lunghezza che deve percorrere
    }
     engines(0,0);
-  if (!movement_result == 0 ) 
-  {
-    logDebug(String("engines stop"));
-  }
 return movement_result;
 }
 
 int engines_movement(float duration, int power_left, int power_right) {
    
    logDebug(String("engines go"));
+   logDebug(String("powerleft: ")+String(power_left)+ String(" | power right: ")+String(power_right));
+
    engines(power_left, power_right);
    
    int duration_millseconds = (int)(duration * 1000);

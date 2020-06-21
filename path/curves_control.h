@@ -10,13 +10,16 @@
 
 long curve_RL ()
 {
-    int right_US = get_obstacle_distance(ULTRASONIC1_TRIGGER_PIN, ULTRASONIC1_ECHO_PIN);
-    int left_US = get_obstacle_distance(ULTRASONIC2_TRIGGER_PIN, ULTRASONIC2_ECHO_PIN);
-
+    delay(50);
+    int left_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_2, ULTRASONIC_ECHO_PIN_2);
+    delay(50);
+    int right_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_1, ULTRASONIC_ECHO_PIN_1);
     if (right_US < MOVEMENT_OBSTACLE_DISTANCE || left_US < MOVEMENT_OBSTACLE_DISTANCE)
     {
         if (right_US < MOVMENT_DISTANCE_GO_BACK || left_US < MOVMENT_DISTANCE_GO_BACK)
         {
+            logDebug(String("GO BACK, distance right: ") + String(right_US) + String(" cm, distance left: ") + String(left_US) + String(" cm"));
+
             return GO_BACK;
         }
         if ((left_US - RANGE_US_ERROR) < right_US  && right_US < (left_US + RANGE_US_ERROR))
@@ -47,19 +50,23 @@ long curve_RL ()
 
 long curve_back ()
 {    
-    int right_US = get_obstacle_distance(ULTRASONIC1_TRIGGER_PIN, ULTRASONIC1_ECHO_PIN);
-    int left_US = get_obstacle_distance(ULTRASONIC2_TRIGGER_PIN, ULTRASONIC2_ECHO_PIN);
-    if (right_US <= MOVMENT_DISTANCE_GO_BACK && left_US <= MOVMENT_DISTANCE_GO_BACK)
+    delay(50);
+    int right_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_1, ULTRASONIC_ECHO_PIN_1);
+    delay(50);
+    int left_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_2, ULTRASONIC_ECHO_PIN_2);
+    if (right_US <= MOVMENT_DISTANCE_GO_BACK || left_US <= MOVMENT_DISTANCE_GO_BACK)
     {
-        logDebug(String("GO BACK"));
         if (right_US < left_US)
         {
-            
-            return MOVEMENT_OBSTACLE_DISTANCE - right_US;
+            logDebug(String("bebug curve back ") + String(right_US));
+            logDebug(String("go back of: ") + String(MOVEMENT_OBSTACLE_DISTANCE - right_US));
+            return (MOVEMENT_OBSTACLE_DISTANCE - right_US);
         }
         if (right_US > left_US)
         {
-            return MOVEMENT_OBSTACLE_DISTANCE - left_US;
+            logDebug(String("bebug curve back ") + String(right_US));
+            logDebug(String("go back of: ") + String(MOVEMENT_OBSTACLE_DISTANCE - left_US));            
+            return (MOVEMENT_OBSTACLE_DISTANCE - left_US);
         }
     }
 }
