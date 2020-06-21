@@ -8,7 +8,12 @@
 #define MOVEMENT_OK 0
 #define GO_BACK -255
 
-long curve_RL ()
+
+/* Uso di due ultrasuoni per verificare tipo di curvatura da eseguire */
+
+/* Decide da quale parte curvare */
+/* Restituisce un valore CURVE_RIGHT, CURVE_LEFT, TURN_180 */
+long curve_RL()
 {
     delay(50);
     int left_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_2, ULTRASONIC_ECHO_PIN_2);
@@ -37,7 +42,7 @@ long curve_RL ()
             if (right_US < left_US)
             {
                 logDebug(String("TURN LEFT 90°, distance right: ") + String(right_US) + String(" cm, distance left: ") + String(left_US) + String(" cm"));
-                return(CURVE_LEFT);
+                return (CURVE_LEFT);
             }
         }
     }
@@ -48,7 +53,8 @@ long curve_RL ()
     }
 }
 
-long curve_back ()
+/* Calcola la distanza di arretramento nel caso di curva troppo stretta con ostacolo davanti */
+long curve_back()
 {    
     delay(50);
     int right_US = get_obstacle_distance(ULTRASONIC_TRIGGER_PIN_1, ULTRASONIC_ECHO_PIN_1);

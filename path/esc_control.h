@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-#define ESC_ATTACH  3
+#define ESC_PIN  3
 #define ESC_OFF 1000
 #define ESC_ON 1300 //ESC ON PUO' ANDARE DA 1000 A 2000
 int ON_OFF = 1;
@@ -38,7 +38,7 @@ void esc_botton_toggle()
 
 void esc_setup ()
 {
-    esc.attach(ESC_ATTACH);
+    esc.attach(ESC_PIN);
     //ESC setup for starting up.
     delay(1000);
     esc_off();

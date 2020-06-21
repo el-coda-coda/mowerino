@@ -6,9 +6,15 @@
 #include "segments.h"
 #include "esc_control.h"
 
+
+#define SEGMENT_LENGTH 200
+
 int curving = 0;
 int movement_return;
 int lenght_go_back = 0;
+
+
+
 
 void setup ()
 {
@@ -17,32 +23,43 @@ void setup ()
    // lcd.init();
    // lcd.backlight();
    
+
+   /*
+   
    esc_setup();
    delay(3000);
    engines_stop();
+   
+   */
+
    Serial.begin(9600);
    /*Serial.println(distance(trig1, echo1));*/
    pinMode(ULTRASONIC_ECHO_PIN_1, INPUT);
    pinMode(ULTRASONIC_TRIGGER_PIN_1, OUTPUT);
    pinMode(ULTRASONIC_ECHO_PIN_2, INPUT);
    pinMode(ULTRASONIC_TRIGGER_PIN_2, OUTPUT); 
-   pinMode(pwm_A, OUTPUT);
-   pinMode(dir_A, OUTPUT);
-   pinMode(pwm_B, OUTPUT);
-   pinMode(dir_B, OUTPUT);
-   pinMode(BUTTON_PIN, INPUT);
+   pinMode(PWM_PIN_ENGINE_A, OUTPUT);
+   pinMode(DIRECTION_PIN_ENGINE_A, OUTPUT);
+   pinMode(PWM_PIN_ENGINE_B, OUTPUT);
+   pinMode(DIRECTION_PIN_ENGINE_B, OUTPUT);
+   //pinMode(BUTTON_PIN, INPUT);
    pinMode(13, OUTPUT);
+
+
+   //esc_on();
+
+   
 }
 
 
 void loop ()
 {
 
-   /*
+   
    delay(1000);
    logDebug(String("Engines go forward"));
 
-   curving = go_forward(200); 
+   curving = go_forward(SEGMENT_LENGTH); 
    logDebug(String("The curve type is: ") + String(curving));
    if (curving == GO_BACK)
    {
@@ -66,9 +83,6 @@ void loop ()
    {
       logDebug(String("Movement return: MOVEMENT OK"));
    }
-   */
 
-   go_back(200);
-   
    
 }

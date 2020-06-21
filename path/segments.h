@@ -92,11 +92,13 @@ int go_forward(float segment_length)
 {
   int movement_result=0;
   float seg_time = segment_time(WHEEL_DIAMETER, segment_length);
-  logDebug(String("Go forwardo for time (sec) ") + String(seg_time));
+
+  logDebug(String("Go forward for time (sec) ") + String(seg_time));
   logDebug(String("Segment length (cm): ") + String(segment_length));
 
   movement_result = engines_forward(seg_time);
-  if (!movement_result == MOVEMENT_OK) 
+
+  if (movement_result != MOVEMENT_OK) 
   {
     //movement_result = engines_stop(); //per ora spengo
     if (movement_result == MOVEMENT_GENERIC_ERROR) 
@@ -111,10 +113,10 @@ int go_forward(float segment_length)
       engines_stop();
       movement_result = GO_BACK; 
     }
-  }
-  else
-  {
-    logDebug(String("obstacle found"));
+    else
+    {
+      logDebug(String("obstacle found"));
+    }
   }
   return movement_result;
 }
